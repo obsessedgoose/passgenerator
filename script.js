@@ -29,14 +29,14 @@ var Number;
 
 var Special;
 
-function createPassword () {
-  var plength = prompt("How long would you like your password?");
+function createPassword() {
+  var plength = (prompt("How long would you like your password?"));
 
-
-  while (plength <=8 && plength >= 128) {
+  // If > 128 or < 8
+  while (plength <= 8 && plength >= 128) {
     alert("Please select a number between 8 and 128.");
 
-    var plength = prompt("How long would you like your password?");
+    var plength = (prompt("How long would you like your password?"));
   }
 
   var confirmUpper = confirm("Do you want to use upper case?");
@@ -44,7 +44,7 @@ function createPassword () {
   var confirmNumber = confirm("Do you want to use numbers?");
   var confirmSpecial = confirm("Do you want to use special characters?");
 
-
+  // If no answer
   while (confirmUpper === false && confirmLower === false && confirmNumber === false && confirmSpecial === false) {
     alert("Please pick at least one option.");
 
@@ -54,21 +54,41 @@ function createPassword () {
     var confirmSpecial = confirm("Do you want to use special characters?");
   }
 
-  var passChar = [];
+  var passChar = []
 
   if (confirmUpper) {
-  passChar = passChar.concat(confirmUpper);
+    passChar = passChar.concat(upperCase)
   }
 
   if (confirmLower) {
-    passChar = passChar.concat(confirmLower);
+    passChar = passChar.concat(lowerCase)
   }
 
   if (confirmNumber) {
-    passChar = passChar.concat(confirmNumber);
+    passChar = passChar.concat(numbers)
   }
 
   if (confirmSpecial) {
-    passChar = passChar.concat(confirmSpecial);
+    passChar = passChar.concat(special)
   }
+
+  console.log(passChar)
+
+  var randomPass = ""
+
+  for (var i = 0; i < plength; i++) {
+    randomPass = randomPass + passChar[Math.floor(Math.random() * passChar.length)];
+    console.log(randomPass)
+
+  }
+  return randomPass;
+}
+
+// Write Password
+
+function writePassword() {
+  var password = createPassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
 }
